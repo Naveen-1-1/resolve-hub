@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 
 function App() {
   const [listings, setListings] = useState(null);
@@ -18,10 +19,10 @@ function App() {
   if (!listings) return <p>Loading...</p>;
 
   return (
-    <section style={{ padding: "2rem" }}>
+    <Container>
       <h1>Listings ({listings.length})</h1>
       <pre>{JSON.stringify(listings, null, 2)}</pre>
-    </section>
+    </Container>
   );
 }
 

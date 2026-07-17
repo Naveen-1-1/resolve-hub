@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node backend.js",
-    "dev-frontend": "live-server frontend",
-    "dev-backend": "nodemon backend.js",
+    "dev": "nodemon backend.js",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "format": "prettier . --write",
