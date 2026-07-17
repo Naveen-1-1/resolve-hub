@@ -7,8 +7,8 @@
     "start": "node backend.js",
     "dev-frontend": "live-server frontend",
     "dev-backend": "nodemon backend.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
     "format": "prettier . --write",
     "format:check": "prettier . --check"
   },
