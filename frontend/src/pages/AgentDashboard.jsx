@@ -24,32 +24,44 @@ function AgentDashboard() {
   const [error, setError] = useState("");
   const assignedToCurrentAgent = selected?.ticket.assignedAgentId === user._id;
 
+  const fetchTickets = useCallback(async () => {
+    const params = new URLSearchParams();
+    if (filters.status) params.set("status", filters.status);
+    if (filters.priority) params.set("priority", filters.priority);
+    const data = await apiFetch(`/tickets?${params}`);
+    return data.tickets;
+  }, [filters]);
+
   const loadTickets = useCallback(async () => {
     try {
-      const params = new URLSearchParams();
-      if (filters.status) params.set("status", filters.status);
-      if (filters.priority) params.set("priority", filters.priority);
-      const data = await apiFetch(`/tickets?${params}`);
-      setTickets(data.tickets);
+      setTickets(await fetchTickets());
       setError("");
     } catch (requestError) {
       setError(requestError.message);
     }
-  }, [filters]);
+  }, [fetchTickets]);
+
+  const fetchNotifications = useCallback(async () => {
+    const data = await apiFetch("/notifications");
+    return data.notifications;
+  }, []);
 
   const loadNotifications = useCallback(async () => {
-    const data = await apiFetch("/notifications");
-    setNotifications(data.notifications);
-  }, []);
+    try {
+      setNotifications(await fetchNotifications());
+    } catch (requestError) {
+      setError(requestError.message);
+    }
+  }, [fetchNotifications]);
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (filters.status) params.set("status", filters.status);
-    if (filters.priority) params.set("priority", filters.priority);
     let active = true;
-    apiFetch(`/tickets?${params}`)
-      .then((data) => {
-        if (active) setTickets(data.tickets);
+    fetchTickets()
+      .then((nextTickets) => {
+        if (active) {
+          setTickets(nextTickets);
+          setError("");
+        }
       })
       .catch((requestError) => {
         if (active) setError(requestError.message);
@@ -57,13 +69,13 @@ function AgentDashboard() {
     return () => {
       active = false;
     };
-  }, [filters]);
+  }, [fetchTickets]);
 
   useEffect(() => {
     let active = true;
-    apiFetch("/notifications")
-      .then((data) => {
-        if (active) setNotifications(data.notifications);
+    fetchNotifications()
+      .then((nextNotifications) => {
+        if (active) setNotifications(nextNotifications);
       })
       .catch((requestError) => {
         if (active) setError(requestError.message);
@@ -71,7 +83,7 @@ function AgentDashboard() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [fetchNotifications]);
 
   const selectTicket = async (id) => {
     try {

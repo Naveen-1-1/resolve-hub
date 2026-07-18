@@ -18,18 +18,25 @@ function FaqManager() {
   const [search, setSearch] = useState("");
   const [message, setMessage] = useState("");
 
-  const loadFaqs = useCallback(async (query = "") => {
+  const fetchFaqs = useCallback(async (query = "") => {
     const params = new URLSearchParams();
     if (query.trim()) params.set("search", query.trim());
     const data = await apiFetch(`/faqs?${params}`);
-    setFaqs(data.items);
+    return data.items;
   }, []);
+
+  const loadFaqs = useCallback(
+    async (query = "") => {
+      setFaqs(await fetchFaqs(query));
+    },
+    [fetchFaqs]
+  );
 
   useEffect(() => {
     let active = true;
-    apiFetch("/faqs")
-      .then((data) => {
-        if (active) setFaqs(data.items);
+    fetchFaqs()
+      .then((items) => {
+        if (active) setFaqs(items);
       })
       .catch((error) => {
         if (active) setMessage(error.message);
@@ -37,7 +44,7 @@ function FaqManager() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [fetchFaqs]);
 
   const saveFaq = async (event) => {
     event.preventDefault();

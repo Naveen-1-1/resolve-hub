@@ -8,10 +8,6 @@ const router = express.Router();
 const toObjectId = (value) =>
   ObjectId.isValid(value) ? new ObjectId(value) : null;
 
-const canViewSession = (user, session) =>
-  user.role !== "customer" ||
-  session.customerId.toString() === user._id.toString();
-
 const enrichSessions = async (db, sessions) => {
   const sessionIds = sessions.map((session) => session._id);
   const faqIds = [
@@ -80,26 +76,6 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.error("Failed to list sessions:", error);
     res.status(500).json({ message: "Unable to load sessions" });
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  try {
-    const id = toObjectId(req.params.id);
-    if (!id) return res.status(400).json({ message: "Invalid session id" });
-    const db = await connectToDb();
-    const session = await db.collection("supportSessions").findOne({ _id: id });
-    if (!session) {
-      return res.status(404).json({ message: "Session not found" });
-    }
-    if (!canViewSession(req.user, session)) {
-      return res.status(403).json({ message: "You do not have access" });
-    }
-    const [enrichedSession] = await enrichSessions(db, [session]);
-    return res.json({ session: enrichedSession });
-  } catch (error) {
-    console.error("Failed to load session:", error);
-    return res.status(500).json({ message: "Unable to load session" });
   }
 });
 

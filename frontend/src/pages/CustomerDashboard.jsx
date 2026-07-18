@@ -7,40 +7,45 @@ import TicketList from "../components/TicketList.jsx";
 import { apiFetch } from "../api.js";
 import "./CustomerDashboard.css";
 
+async function fetchDashboard() {
+  const [sessionData, ticketData, notificationData] = await Promise.all([
+    apiFetch("/sessions"),
+    apiFetch("/tickets"),
+    apiFetch("/notifications"),
+  ]);
+  return {
+    sessions: sessionData.sessions,
+    tickets: ticketData.tickets,
+    notifications: notificationData.notifications,
+  };
+}
+
 function CustomerDashboard() {
   const [sessions, setSessions] = useState([]);
   const [tickets, setTickets] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [error, setError] = useState("");
 
+  const applyDashboard = useCallback((data) => {
+    setSessions(data.sessions);
+    setTickets(data.tickets);
+    setNotifications(data.notifications);
+    setError("");
+  }, []);
+
   const loadDashboard = useCallback(async () => {
     try {
-      const [sessionData, ticketData, notificationData] = await Promise.all([
-        apiFetch("/sessions"),
-        apiFetch("/tickets"),
-        apiFetch("/notifications"),
-      ]);
-      setSessions(sessionData.sessions);
-      setTickets(ticketData.tickets);
-      setNotifications(notificationData.notifications);
-      setError("");
+      applyDashboard(await fetchDashboard());
     } catch (requestError) {
       setError(requestError.message);
     }
-  }, []);
+  }, [applyDashboard]);
 
   useEffect(() => {
     let active = true;
-    Promise.all([
-      apiFetch("/sessions"),
-      apiFetch("/tickets"),
-      apiFetch("/notifications"),
-    ])
-      .then(([sessionData, ticketData, notificationData]) => {
-        if (!active) return;
-        setSessions(sessionData.sessions);
-        setTickets(ticketData.tickets);
-        setNotifications(notificationData.notifications);
+    fetchDashboard()
+      .then((data) => {
+        if (active) applyDashboard(data);
       })
       .catch((requestError) => {
         if (active) setError(requestError.message);
@@ -48,7 +53,7 @@ function CustomerDashboard() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [applyDashboard]);
 
   const activeSession = sessions.find((session) => session.status === "active");
 

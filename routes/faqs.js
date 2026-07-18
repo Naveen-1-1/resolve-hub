@@ -95,23 +95,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  try {
-    if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: "Invalid FAQ id" });
-    }
-    const db = await connectToDb();
-    const faq = await db
-      .collection("faqs")
-      .findOne({ _id: new ObjectId(req.params.id) });
-    if (!faq) return res.status(404).json({ message: "FAQ not found" });
-    return res.json({ faq });
-  } catch (error) {
-    console.error("Failed to load FAQ:", error);
-    return res.status(500).json({ message: "Unable to load FAQ" });
-  }
-});
-
 router.post("/", isAuthenticated, requireRole("admin"), async (req, res) => {
   try {
     const validationError = validateFaq(req.body);
