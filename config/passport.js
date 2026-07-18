@@ -20,7 +20,8 @@ const strategy = new LocalStrategy(
         return done(null, false, { message: "User or password incorrect" });
       }
 
-      const { passwordHash, ...safeUser } = user;
+      const safeUser = { ...user };
+      delete safeUser.passwordHash;
       // Case 3. User found and password correct
       return done(null, safeUser);
     } catch (error) {

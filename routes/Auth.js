@@ -34,7 +34,8 @@ router.post("/register", async (req, res) => {
       name,
     });
 
-    const { passwordHash: _, ...safeUser } = user;
+    const safeUser = { ...user };
+    delete safeUser.passwordHash;
 
     res.status(201).json({
       message: "User created successfully",
@@ -70,7 +71,8 @@ router.post("/login", (req, res, next) => {
 
 // Get current user (protected route)
 router.get("/user", isAuthenticated, (req, res) => {
-  const { passwordHash, ...safeUser } = req.user;
+  const safeUser = { ...req.user };
+  delete safeUser.passwordHash;
   res.json({ user: safeUser });
 });
 
