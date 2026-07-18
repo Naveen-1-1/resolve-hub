@@ -1,0 +1,14 @@
+.app-navbar {
+  background: #17324d;
+}
+
+.app-navbar .navbar-brand,
+.app-navbar .navbar-text,
+.app-navbar .nav-link {
+  color: #f8fafc;
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link:focus {
+  color: #9ed8ff;
+}

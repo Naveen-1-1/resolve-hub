@@ -1,0 +1,23 @@
+.user-manager {
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+}
+
+.user-manager-form {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr) auto;
+}
+
+.user-manager-form .btn {
+  align-self: end;
+}
+
+@media (max-width: 900px) {
+  .user-manager-form {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,23 @@
+.faq-browser {
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.faq-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.faq-answer {
+  white-space: pre-line;
+}
+
+.section-heading {
+  align-items: start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}

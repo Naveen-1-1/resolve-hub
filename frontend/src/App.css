@@ -1,0 +1,41 @@
+:root {
+  color: #25384a;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+body {
+  background: #f4f7fa;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #17324d;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #7fc8ff;
+  outline-offset: 2px;
+}

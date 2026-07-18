@@ -1,0 +1,11 @@
+.register-page {
+  display: grid;
+  min-height: calc(100vh - 64px);
+  place-items: center;
+}
+
+.register-card {
+  border-color: #dce4ec;
+  max-width: 500px;
+  width: 100%;
+}

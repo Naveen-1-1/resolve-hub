@@ -1,0 +1,17 @@
+.dashboard-page {
+  background: #f4f7fa;
+  min-height: calc(100vh - 64px);
+  padding: 2rem 0 4rem;
+}
+
+.customer-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(420px, 1.5fr);
+}
+
+@media (max-width: 900px) {
+  .customer-grid {
+    grid-template-columns: 1fr;
+  }
+}

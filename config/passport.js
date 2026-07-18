@@ -7,41 +7,35 @@ const strategy = new LocalStrategy(
   { usernameField: "email", passwordField: "password" },
   async (email, password, done) => {
     try {
-      const user = findUserByEmail(email);
+      const user = await findUserByEmail(email, true);
       if (!user) {
-        // Case 2. User not found or password incorrect
         return done(null, false, { message: "User or password incorrect" });
       }
 
       const isValidPassword = await bcrypt.compare(password, user.passwordHash);
 
       if (!isValidPassword) {
-        // Case 2. User not found or password incorrect
         return done(null, false, { message: "User or password incorrect" });
       }
 
       const safeUser = { ...user };
       delete safeUser.passwordHash;
-      // Case 3. User found and password correct
       return done(null, safeUser);
     } catch (error) {
-      // Case 1. There is an error
-      done(error);
+      return done(error);
     }
   }
 );
 
 passport.use(strategy);
 
-// Serialize user (what to store in session)
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user._id.toString());
 });
 
-// Deserialize user (how to retrieve user from session)
-passport.deserializeUser((id, done) => {
+passport.deserializeUser(async (id, done) => {
   try {
-    const user = findUserById(id);
+    const user = await findUserById(id);
     done(null, user);
   } catch (error) {
     done(error);

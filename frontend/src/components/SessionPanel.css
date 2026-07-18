@@ -1,0 +1,23 @@
+.session-panel {
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.escalation-form {
+  background: #fff8e1;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.ticket-metadata {
+  display: grid;
+  gap: 0.25rem 0.75rem;
+  grid-template-columns: max-content 1fr;
+  margin-bottom: 0;
+}
+
+.ticket-metadata dd {
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,28 @@
+.hero {
+  background: linear-gradient(135deg, #e7f4ff, #f5f9fc);
+  padding: 5rem 0;
+}
+
+.hero h1 {
+  color: #17324d;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  max-width: 850px;
+}
+
+.hero-copy {
+  font-size: 1.15rem;
+  max-width: 700px;
+}
+
+.eyebrow {
+  color: #1769aa;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.step-number {
+  color: #1769aa;
+  font-size: 1.5rem;
+  font-weight: 700;
+}

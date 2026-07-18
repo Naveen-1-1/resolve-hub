@@ -1,0 +1,14 @@
+.admin-dashboard {
+  background: #f4f7fa;
+  min-height: calc(100vh - 64px);
+  padding: 2rem 0 4rem;
+}
+
+.metric-card {
+  border-color: #dce4ec;
+}
+
+.metric-card .card-title {
+  color: #1769aa;
+  font-size: 2rem;
+}

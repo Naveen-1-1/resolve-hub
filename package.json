@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node backend.js",
     "dev": "nodemon backend.js",
+    "build": "npm --prefix frontend run build",
+    "seed": "node scripts/seed.js",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "format": "prettier . --write",

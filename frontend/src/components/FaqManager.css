@@ -1,0 +1,24 @@
+.faq-manager {
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.faq-editor {
+  background: #f7f9fb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.faq-editor-row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 2fr;
+}
+
+@media (max-width: 700px) {
+  .faq-editor-row {
+    grid-template-columns: 1fr;
+  }
+}

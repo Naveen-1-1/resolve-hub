@@ -1,28 +1,58 @@
-import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { Route, Routes } from "react-router";
+import AppNavbar from "./components/AppNavbar.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
+import AgentDashboard from "./pages/AgentDashboard.jsx";
+import CustomerDashboard from "./pages/CustomerDashboard.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import "./App.css";
 
 function App() {
-  const [listings, setListings] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch("/api/listings")
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then(setListings)
-      .catch((err) => setError(err.message));
-  }, []);
-
-  if (error) return <p>Error: {error}</p>;
-  if (!listings) return <p>Loading...</p>;
-
   return (
-    <Container>
-      <h1>Listings ({listings.length})</h1>
-      <pre>{JSON.stringify(listings, null, 2)}</pre>
-    </Container>
+    <>
+      <AppNavbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/customer"
+          element={
+            <ProtectedRoute roles={["customer"]}>
+              <CustomerDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/agent"
+          element={
+            <ProtectedRoute roles={["agent"]}>
+              <AgentDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Container className="py-5 text-center">
+              <h1>Page not found</h1>
+              <p>The page you requested does not exist.</p>
+            </Container>
+          }
+        />
+      </Routes>
+    </>
   );
 }
 
