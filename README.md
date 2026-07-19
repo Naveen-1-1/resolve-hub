@@ -6,7 +6,7 @@ Author: Naveen Shankar
 
 Course: Web Development (CS 5610), MS CS at Northeastern University, Boston
 
-Public project page:[https://resolve-hub.onrender.com/](https://resolve-hub.onrender.com/)
+Public project page: [https://resolve-hub.onrender.com/](https://resolve-hub.onrender.com/)
 
 Class link: [https://johnguerra.co/classes/webDevelopment_online_summer_2026/](https://johnguerra.co/classes/webDevelopment_online_summer_2026/)
 
@@ -103,7 +103,7 @@ layout. Full-size wireframes are also available in [`docs/wireframes/`](./docs/w
 
 ## Demo Video
 
-Public narrated demo video: TODO
+Public narrated demo video: https://youtu.be/3M0BZtVOVzQ
 
 ## Presentation Slides
 
