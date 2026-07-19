@@ -34,45 +34,25 @@ An administrator who manages the FAQ library and platform health. This user can 
 
 ## User Stories
 
-### 1. User Authentication
+1. User Authentication: As any user, I want to log in with my role so that I only access features appropriate to my permissions.
 
-**As any user, I want to log in with my role so that I only access features appropriate to my permissions.**
+2. Start a Support Session: As a customer, I want to start a new support session so that my FAQ lookups and actions are tracked with full session state.
 
-### 2. Start a Support Session
+3. Browse & Retrieve FAQ Documents: As a customer, I want to browse FAQ articles by category, tag, or title so that I can find answers without agent involvement.
 
-**As a customer, I want to start a new support session so that my FAQ lookups and actions are tracked with full session state.**
+4. View Session History: As a customer, I want to view my past sessions and activity so that I can refer back to previous FAQ articles and context.
 
-### 3. Browse & Retrieve FAQ Documents
+5. Escalate to a Support Ticket: As a customer, I want to escalate an unresolved session into a support ticket so that an agent can follow up with full session context.
 
-**As a customer, I want to browse FAQ articles by category, tag, or title so that I can find answers without agent involvement.**
+6. Manage the Ticket Queue: As a support agent, I want to view, filter, and assign tickets by status and priority so that I can process the intake queue efficiently.
 
-### 4. View Session History
+7. Update Ticket Status: As a support agent, I want to move tickets through validated states so that every query follows a consistent resolution workflow.
 
-**As a customer, I want to view my past sessions and activity so that I can refer back to previous FAQ articles and context.**
+8. Receive Ticket Notifications: As a support agent or customer, I want notifications when ticket status changes so that I am alerted to assignments, progress, and resolutions.
 
-### 5. Escalate to a Support Ticket
+9. Manage FAQ Documents: As a knowledge admin, I want to create, update, and delete FAQ articles so that the document library stays current.
 
-**As a customer, I want to escalate an unresolved session into a support ticket so that an agent can follow up with full session context.**
-
-### 6. Manage the Ticket Queue
-
-**As a support agent, I want to view, filter, and assign tickets by status and priority so that I can process the intake queue efficiently.**
-
-### 7. Update Ticket Status
-
-**As a support agent, I want to move tickets through validated states so that every query follows a consistent resolution workflow.**
-
-### 8. Receive Ticket Notifications
-
-**As a support agent or customer, I want notifications when ticket status changes so that I am alerted to assignments, progress, and resolutions.**
-
-### 9. Manage FAQ Documents
-
-**As a knowledge admin, I want to create, update, and delete FAQ articles so that the document library stays current.**
-
-### 10. View Monitoring Dashboard
-
-**As a knowledge admin, I want to view session, ticket, and notification metrics so that I can monitor platform reliability.**
+10. View Monitoring Dashboard: As a knowledge admin, I want to view session, ticket, and notification metrics so that I can monitor platform reliability.
 
 ## Wireframes
 
