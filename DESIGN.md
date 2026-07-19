@@ -60,24 +60,24 @@ The wireframes below show the layout for each public-facing page in the project.
 
 ### Home Page
 
-<img src="./docs/wireframes/home.png" alt="Home Page wireframe" height="400" />
+<img src="./docs/wireframes/thumbs/home.png" alt="Home Page wireframe" width="400" height="400" />
 
 ### Login Page
 
-<img src="./docs/wireframes/login.png" alt="Login Page wireframe" height="400" />
+<img src="./docs/wireframes/thumbs/login.png" alt="Login Page wireframe" width="400" height="400" />
 
 ### Register Page
 
-<img src="./docs/wireframes/register.png" alt="Register Page wireframe" height="400" />
+<img src="./docs/wireframes/thumbs/register.png" alt="Register Page wireframe" width="400" height="400" />
 
 ### Customer Page
 
-<img src="./docs/wireframes/customer.png" alt="Customer Page wireframe" height="400" />
+<img src="./docs/wireframes/thumbs/customer.png" alt="Customer Page wireframe" width="400" height="400" />
 
 ### Agent Page
 
-<img src="./docs/wireframes/agent.png" alt="Agent Page wireframe" height="400" />
+<img src="./docs/wireframes/thumbs/agent.png" alt="Agent Page wireframe" width="400" height="400" />
 
 ### Admin Page
 
-<img src="./docs/wireframes/admin.png" alt="Admin Page wireframe" height="400" />
+<img src="./docs/wireframes/thumbs/admin.png" alt="Admin Page wireframe" width="400" height="400" />
