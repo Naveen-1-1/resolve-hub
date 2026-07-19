@@ -107,7 +107,7 @@ Public narrated demo video: TODO
 
 ## Presentation Slides
 
-Google Slides presentation: TODO
+Google Slides presentation: https://docs.google.com/presentation/d/1GilCHPLkzQ9E1Oke1zN6DX1FcGRGEBp33SstoaL4Sjs/edit?usp=sharing
 
 ## GenAI Disclosure
 
