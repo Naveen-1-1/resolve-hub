@@ -60,24 +60,24 @@ The wireframes below show the layout for each public-facing page in the project.
 
 ### Home Page
 
-![Home Page wireframe](./docs/wireframes/home.png)
+<img src="./docs/wireframes/home.png" alt="Home Page wireframe" style="max-width: 800px; max-height: 600px; width: 100%; height: auto;" />
 
 ### Login Page
 
-![Login Page wireframe](./docs/wireframes/login.png)
+<img src="./docs/wireframes/login.png" alt="Login Page wireframe" style="max-width: 800px; max-height: 600px; width: 100%; height: auto;" />
 
 ### Register Page
 
-![Register Page wireframe](./docs/wireframes/register.png)
+<img src="./docs/wireframes/register.png" alt="Register Page wireframe" style="max-width: 800px; max-height: 600px; width: 100%; height: auto;" />
 
 ### Customer Page
 
-![Customer Page wireframe](./docs/wireframes/customer.png)
+<img src="./docs/wireframes/customer.png" alt="Customer Page wireframe" style="max-width: 800px; max-height: 600px; width: 100%; height: auto;" />
 
 ### Agent Page
 
-![Agent Page wireframe](./docs/wireframes/agent.png)
+<img src="./docs/wireframes/agent.png" alt="Agent Page wireframe" style="max-width: 800px; max-height: 600px; width: 100%; height: auto;" />
 
 ### Admin Page
 
-![Admin Page wireframe](./docs/wireframes/admin.png)
+<img src="./docs/wireframes/admin.png" alt="Admin Page wireframe" style="max-width: 800px; max-height: 600px; width: 100%; height: auto;" />
