@@ -1,3 +1,5 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import express from "express";
 import session from "express-session";
 import authRouter from "./routes/Auth.js";
@@ -8,6 +10,8 @@ import notificationsRouter from "./routes/notifications.js";
 import metricsRouter from "./routes/metrics.js";
 import passport from "./config/passport.js";
 import "dotenv/config";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const PORT = process.env.BACKEND_PORT || 8000;
 const sessionSecret = process.env.SESSION_SECRET;
@@ -44,6 +48,13 @@ app.use("/api/metrics", metricsRouter);
 
 app.use("/api/{*path}", (req, res) => {
   res.status(404).json({ message: "API route not found" });
+});
+
+app.get("/{*path}", (req, res, next) => {
+  if (req.path.startsWith("/api")) {
+    return next();
+  }
+  res.sendFile(path.join(__dirname, "frontend/dist/index.html"));
 });
 
 app.use((error, req, res, next) => {

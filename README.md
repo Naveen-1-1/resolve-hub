@@ -24,6 +24,8 @@ The frontend is built using React with hooks, HTML, and CSS. The backend uses No
 
 Use Node.js 20 or newer and a MongoDB Atlas connection string.
 
+### Setup
+
 Create a `.env` file from `.env.example`:
 
 ```env
@@ -47,6 +49,10 @@ Seed the database with the 1,000 Mockaroo FAQs and three demo users:
 npm run seed
 ```
 
+### Development
+
+Use this while actively working on the project. The Vite dev server provides hot reload for frontend changes, and Nodemon restarts the backend when server files change.
+
 Run the backend:
 
 ```sh
@@ -60,6 +66,26 @@ npm --prefix frontend run dev
 ```
 
 Open `http://localhost:3000`.
+
+### Production-like (single server)
+
+Use this to run the app the way it behaves in production: one Node server serves the built React app and the API on the same port.
+
+Build the frontend:
+
+```sh
+npm run build
+```
+
+Start the server:
+
+```sh
+npm start
+```
+
+Open `http://localhost:8000` (or whatever `BACKEND_PORT` is set to in `.env`).
+
+Rebuild the frontend after UI changes with `npm run build`.
 
 ## Demo accounts
 
