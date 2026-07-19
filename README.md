@@ -99,7 +99,7 @@ Public registration creates customer accounts only. To add additional users with
 
 The design document is available in `DESIGN.md`. It includes the required project description,
 personas, user stories, design mockups/wireframes/screenshots that explain the portfolio's
-layout.
+layout. Full-size wireframes are also available in [`docs/wireframes/`](./docs/wireframes/) for additional inspection.
 
 ## Demo Video
 

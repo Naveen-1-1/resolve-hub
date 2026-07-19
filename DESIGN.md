@@ -56,7 +56,7 @@ An administrator who manages the FAQ library and platform health. This user can 
 
 ## Wireframes
 
-The wireframes below show the layout for each public-facing page in the project.
+The wireframes below show the layout for each public-facing page in the project. Full-size versions of all wireframes are also available in [`docs/wireframes/`](./docs/wireframes/) for additional inspection.
 
 ### Home Page
 
