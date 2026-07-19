@@ -93,6 +93,8 @@ Rebuild the frontend after UI changes with `npm run build`.
 - Agent: `agent@resolvehub.demo` / `Agent123!`
 - Admin: `admin@resolvehub.demo` / `Admin123!`
 
+Public registration creates customer accounts only. To add additional users with other roles (customer, support agent, or knowledge admin), log in as the admin user and use **Register a user** on the Admin Dashboard.
+
 ## Design Document
 
 The design document is available in `DESIGN.md`. It includes the required project description,
