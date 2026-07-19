@@ -57,3 +57,27 @@ An administrator who manages the FAQ library and platform health. This user can 
 ## Wireframes
 
 The wireframes below show the layout for each public-facing page in the project.
+
+### Home Page
+
+![Home Page wireframe](./docs/wireframes/home.png)
+
+### Login Page
+
+![Login Page wireframe](./docs/wireframes/login.png)
+
+### Register Page
+
+![Register Page wireframe](./docs/wireframes/register.png)
+
+### Customer Page
+
+![Customer Page wireframe](./docs/wireframes/customer.png)
+
+### Agent Page
+
+![Agent Page wireframe](./docs/wireframes/agent.png)
+
+### Admin Page
+
+![Admin Page wireframe](./docs/wireframes/admin.png)
