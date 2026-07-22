@@ -31,10 +31,12 @@ app.use(
     cookie: {
       httpOnly: true,
       sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
       maxAge: 8 * 60 * 60 * 1000,
     },
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
