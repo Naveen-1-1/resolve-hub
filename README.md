@@ -6,7 +6,7 @@ Author: Naveen Shankar
 
 Course: Web Development (CS 5610), MS CS at Northeastern University, Boston
 
-Public project page: [https://resolve-hub.onrender.com/](https://resolve-hub.onrender.com/)
+Public project page: [https://resolve-hub-v2.onrender.com/](https://resolve-hub-v2.onrender.com/)
 
 Class link: [https://johnguerra.co/classes/webDevelopment_online_summer_2026/](https://johnguerra.co/classes/webDevelopment_online_summer_2026/)
 
@@ -18,7 +18,7 @@ The frontend is built using React with hooks, HTML, and CSS. The backend uses No
 
 ## Screenshot
 
-![Homepage screenshot](./docs/Application-Screenshot.jpeg)
+Homepage screenshot
 
 ## Build And Run Instructions
 
@@ -99,15 +99,20 @@ Public registration creates customer accounts only. To add additional users with
 
 The design document is available in `DESIGN.md`. It includes the required project description,
 personas, user stories, design mockups/wireframes/screenshots that explain the portfolio's
-layout. Full-size wireframes are also available in [`docs/wireframes/`](./docs/wireframes/) for additional inspection.
+layout. Full-size wireframes are also available in `[docs/wireframes/](./docs/wireframes/)` for additional inspection.
+
+## Project Reports
+
+- [Usability Study Report](./Usability%20Study%20Report.md)
+- [Visual Design](./VISUAL_DESIGN.md)
 
 ## Demo Video
 
-Public narrated demo video: https://youtu.be/3M0BZtVOVzQ
+Public narrated demo video: [https://youtu.be/3M0BZtVOVzQ](https://youtu.be/3M0BZtVOVzQ)
 
 ## Presentation Slides
 
-Google Slides presentation: https://docs.google.com/presentation/d/1GilCHPLkzQ9E1Oke1zN6DX1FcGRGEBp33SstoaL4Sjs/edit?usp=sharing
+Google Slides presentation: [https://docs.google.com/presentation/d/1GilCHPLkzQ9E1Oke1zN6DX1FcGRGEBp33SstoaL4Sjs/edit?usp=sharing](https://docs.google.com/presentation/d/1GilCHPLkzQ9E1Oke1zN6DX1FcGRGEBp33SstoaL4Sjs/edit?usp=sharing)
 
 ## GenAI Disclosure
 
