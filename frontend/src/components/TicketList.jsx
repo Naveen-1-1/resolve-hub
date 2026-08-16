@@ -16,9 +16,9 @@ function TicketList({ tickets }) {
         <Table responsive hover>
           <thead>
             <tr>
-              <th>Subject</th>
-              <th>Priority</th>
-              <th>Status</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Priority</th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>

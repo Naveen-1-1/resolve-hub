@@ -116,6 +116,7 @@ function NotificationList({ notifications, onChanged, onTicketFocus }) {
             </div>
             {!notification.isRead && (
               <Button
+                aria-label={`Mark notification as read: ${notification.message}`}
                 size="sm"
                 variant="link"
                 onClick={() => markRead(notification._id)}
@@ -142,6 +143,7 @@ function NotificationList({ notifications, onChanged, onTicketFocus }) {
             (pageNumber) => (
               <Pagination.Item
                 active={pageNumber === currentPage}
+                aria-current={pageNumber === currentPage ? "page" : undefined}
                 key={pageNumber}
                 onClick={() => setPage(pageNumber)}
               >

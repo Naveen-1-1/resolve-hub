@@ -147,60 +147,66 @@ function AgentDashboard() {
   return (
     <main className="agent-dashboard">
       <Container>
-        <h1>Agent ticket queue</h1>
-        <p>
-          Filter requests, assign a ticket to yourself, and move it through the
-          support steps.
-        </p>
+        <header className="page-header">
+          <p className="eyebrow">Support operations</p>
+          <h1>Agent ticket queue</h1>
+          <p>
+            Filter requests, assign a ticket to yourself, and move it through
+            the support steps.
+          </p>
+        </header>
         <ActionFeedback message={message} onClose={() => setMessage("")} />
         {error && <Alert variant="danger">{error}</Alert>}
-        <div className="mb-4">
-          <NotificationList
-            notifications={notifications}
-            onChanged={loadNotifications}
-            onTicketFocus={selectTicket}
-          />
-        </div>
-        <Row className="g-2 mb-3">
-          <Col sm={6}>
-            <Form.Label htmlFor="ticket-status-filter">Status</Form.Label>
-            <Form.Select
-              id="ticket-status-filter"
-              value={filters.status}
-              onChange={(event) => updateFilter("status", event.target.value)}
-            >
-              <option value="">All statuses</option>
-              <option value="open">Open</option>
-              <option value="in_progress">In progress</option>
-              <option value="resolved">Resolved</option>
-            </Form.Select>
-          </Col>
-          <Col sm={6}>
-            <Form.Label htmlFor="ticket-priority-filter">Priority</Form.Label>
-            <Form.Select
-              id="ticket-priority-filter"
-              value={filters.priority}
-              onChange={(event) => updateFilter("priority", event.target.value)}
-            >
-              <option value="">All priorities</option>
-              <option value="high">High</option>
-              <option value="medium">Medium</option>
-              <option value="low">Low</option>
-            </Form.Select>
-          </Col>
-          <Col sm={6} md={4}>
-            <Form.Label htmlFor="ticket-sort">Sort queue by</Form.Label>
-            <Form.Select
-              id="ticket-sort"
-              value={sortBy}
-              onChange={(event) => updateSort(event.target.value)}
-            >
-              <option value="updated">Recently updated</option>
-              <option value="status">Status</option>
-              <option value="priority">Priority</option>
-            </Form.Select>
-          </Col>
-        </Row>
+        <section
+          className="queue-filters"
+          aria-labelledby="queue-filters-heading"
+        >
+          <h2 id="queue-filters-heading" className="visually-hidden">
+            Filter and sort the ticket queue
+          </h2>
+          <Row className="g-3">
+            <Col sm={6}>
+              <Form.Label htmlFor="ticket-status-filter">Status</Form.Label>
+              <Form.Select
+                id="ticket-status-filter"
+                value={filters.status}
+                onChange={(event) => updateFilter("status", event.target.value)}
+              >
+                <option value="">All statuses</option>
+                <option value="open">Open</option>
+                <option value="in_progress">In progress</option>
+                <option value="resolved">Resolved</option>
+              </Form.Select>
+            </Col>
+            <Col sm={6}>
+              <Form.Label htmlFor="ticket-priority-filter">Priority</Form.Label>
+              <Form.Select
+                id="ticket-priority-filter"
+                value={filters.priority}
+                onChange={(event) =>
+                  updateFilter("priority", event.target.value)
+                }
+              >
+                <option value="">All priorities</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </Form.Select>
+            </Col>
+            <Col sm={6} md={4}>
+              <Form.Label htmlFor="ticket-sort">Sort queue by</Form.Label>
+              <Form.Select
+                id="ticket-sort"
+                value={sortBy}
+                onChange={(event) => updateSort(event.target.value)}
+              >
+                <option value="updated">Recently updated</option>
+                <option value="status">Status</option>
+                <option value="priority">Priority</option>
+              </Form.Select>
+            </Col>
+          </Row>
+        </section>
 
         <div className="agent-grid">
           <section className="ticket-table" aria-labelledby="queue-heading">
@@ -210,11 +216,13 @@ function AgentDashboard() {
             <Table responsive hover>
               <thead>
                 <tr>
-                  <th>Subject</th>
-                  <th>Priority</th>
-                  <th>Status</th>
-                  <th>Assigned agent</th>
-                  <th />
+                  <th scope="col">Subject</th>
+                  <th scope="col">Priority</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Assigned agent</th>
+                  <th scope="col">
+                    <span className="visually-hidden">Actions</span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -235,6 +243,7 @@ function AgentDashboard() {
                     </td>
                     <td>
                       <Button
+                        aria-label={`Open ticket: ${ticket.subject}`}
                         size="sm"
                         variant="outline-primary"
                         onClick={() => selectTicket(ticket._id)}
@@ -348,6 +357,13 @@ function AgentDashboard() {
               </Card.Body>
             </Card>
           </section>
+        </div>
+        <div className="agent-notifications">
+          <NotificationList
+            notifications={notifications}
+            onChanged={loadNotifications}
+            onTicketFocus={selectTicket}
+          />
         </div>
       </Container>
     </main>

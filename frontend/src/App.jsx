@@ -57,10 +57,15 @@ function App() {
         <Route
           path="*"
           element={
-            <Container className="py-5 text-center">
-              <h1>Page not found</h1>
-              <p>The page you requested does not exist.</p>
-            </Container>
+            <main className="not-found-page">
+              <Container className="py-5 text-center">
+                <header className="page-header mx-auto">
+                  <p className="eyebrow">404 error</p>
+                  <h1>Page not found</h1>
+                  <p>The page you requested does not exist.</p>
+                </header>
+              </Container>
+            </main>
           }
         />
       </Routes>

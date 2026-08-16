@@ -37,7 +37,7 @@ function AdminDashboard() {
           <Card className="metric-card h-100">
             <Card.Body>
               <Card.Text>{label}</Card.Text>
-              <Card.Title>{value}</Card.Title>
+              <Card.Title as="h3">{value}</Card.Title>
             </Card.Body>
           </Card>
         </Col>
@@ -48,8 +48,11 @@ function AdminDashboard() {
   return (
     <main className="admin-dashboard">
       <Container>
-        <h1>Knowledge admin dashboard</h1>
-        <p>Monitor support activity and maintain the FAQ library.</p>
+        <header className="page-header">
+          <p className="eyebrow">Knowledge operations</p>
+          <h1>Knowledge admin dashboard</h1>
+          <p>Monitor support activity and maintain the FAQ library.</p>
+        </header>
         {error && <Alert variant="danger">{error}</Alert>}
         <Card className="admin-master-card">
           <Card.Body id="admin-tab-content" className="p-0" tabIndex="-1">

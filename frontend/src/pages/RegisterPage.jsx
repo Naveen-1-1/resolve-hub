@@ -39,54 +39,62 @@ function RegisterPage() {
   };
 
   return (
-    <Container className="register-page">
-      <Card className="register-card">
-        <Card.Body>
-          <h1>Create a customer account</h1>
-          <p>Registration creates a customer role automatically.</p>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="register-name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                name="name"
-                value={form.name}
-                onChange={updateField}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="register-email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={updateField}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="register-password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                name="password"
-                type="password"
-                minLength={8}
-                value={form.password}
-                onChange={updateField}
-                required
-              />
-              <Form.Text>Use at least 8 characters.</Form.Text>
-            </Form.Group>
-            <Button type="submit" className="w-100">
-              Register
-            </Button>
-          </Form>
-          <p className="mt-3 mb-0">
-            Already registered? <Link to="/login">Log in</Link>
-          </p>
-        </Card.Body>
-      </Card>
-    </Container>
+    <main>
+      <Container className="register-page">
+        <Card className="register-card">
+          <Card.Body>
+            <header className="auth-header">
+              <p className="eyebrow">Get started</p>
+              <h1>Create a customer account</h1>
+              <p>Registration creates a customer role automatically.</p>
+            </header>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="register-name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  name="name"
+                  value={form.name}
+                  onChange={updateField}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="register-email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={updateField}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="register-password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  name="password"
+                  type="password"
+                  minLength={8}
+                  value={form.password}
+                  onChange={updateField}
+                  aria-describedby="register-password-help"
+                  required
+                />
+                <Form.Text id="register-password-help">
+                  Use at least 8 characters.
+                </Form.Text>
+              </Form.Group>
+              <Button type="submit" className="w-100">
+                Register
+              </Button>
+            </Form>
+            <p className="mt-3 mb-0">
+              Already registered? <Link to="/login">Log in</Link>
+            </p>
+          </Card.Body>
+        </Card>
+      </Container>
+    </main>
   );
 }
 

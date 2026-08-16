@@ -1,14 +1,24 @@
 .user-manager {
-  background: #ffffff;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 1.5rem;
-  padding: 1.25rem;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.user-manager h2 {
+  margin-bottom: 0.55rem;
+}
+
+.user-manager > p {
+  color: var(--color-muted);
+  margin-bottom: 1.5rem;
 }
 
 .user-manager-form {
   display: grid;
-  gap: 1rem;
+  gap: 1rem 1.25rem;
   grid-template-columns: repeat(4, 1fr) auto;
 }
 

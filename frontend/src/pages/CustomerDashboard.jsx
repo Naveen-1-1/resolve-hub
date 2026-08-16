@@ -67,17 +67,20 @@ function CustomerDashboard() {
   return (
     <main className="dashboard-page">
       <Container>
-        <h1>Customer dashboard</h1>
-        <p>
-          Start a session, review FAQs, then resolve it or request agent help.
-        </p>
+        <header className="page-header">
+          <p className="eyebrow">Customer support</p>
+          <h1>Customer dashboard</h1>
+          <p>
+            Start a session, review FAQs, then resolve it or request agent help.
+          </p>
+        </header>
         <Modal
           centered
           onHide={() => setRegistrationNotice("")}
           show={Boolean(registrationNotice)}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Account created</Modal.Title>
+            <Modal.Title as="h2">Account created</Modal.Title>
           </Modal.Header>
           <Modal.Body>{registrationNotice}</Modal.Body>
           <Modal.Footer>
@@ -86,18 +89,18 @@ function CustomerDashboard() {
         </Modal>
         {error && <Alert variant="danger">{error}</Alert>}
         <div className="customer-grid">
+          <SessionPanel sessions={sessions} onChanged={loadDashboard} />
           <NotificationList
             notifications={notifications}
             onChanged={loadDashboard}
             onTicketFocus={focusTicket}
           />
-          <SessionPanel sessions={sessions} onChanged={loadDashboard} />
-          <TicketList tickets={tickets} />
           <FaqBrowser
             activeSessionId={activeSession?._id}
             viewedFaqIds={activeSession?.viewedFaqIds || []}
             onSessionChanged={loadDashboard}
           />
+          <TicketList tickets={tickets} />
         </div>
       </Container>
     </main>

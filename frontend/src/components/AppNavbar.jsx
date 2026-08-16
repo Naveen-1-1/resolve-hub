@@ -24,7 +24,10 @@ function AppNavbar() {
         <Navbar.Brand as={Link} to="/">
           ResolveHub
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="main-navigation" />
+        <Navbar.Toggle
+          aria-controls="main-navigation"
+          aria-label="Toggle navigation"
+        />
         <Navbar.Collapse id="main-navigation">
           <Nav className="ms-auto align-items-md-center gap-md-2">
             {user ? (

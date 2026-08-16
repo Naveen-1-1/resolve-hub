@@ -15,7 +15,7 @@ function ActionFeedback({ message, variant = "success", onClose }) {
   return (
     <Modal centered onHide={onClose} show>
       <Modal.Header closeButton>
-        <Modal.Title>Success</Modal.Title>
+        <Modal.Title as="h2">Success</Modal.Title>
       </Modal.Header>
       <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>

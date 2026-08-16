@@ -1,11 +1,30 @@
 .register-page {
   display: grid;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 4.25rem);
   place-items: center;
+  padding: 2rem 1rem;
 }
 
 .register-card {
   border-color: var(--color-border);
-  max-width: 500px;
+  box-shadow: var(--shadow-md);
+  max-width: 520px;
   width: 100%;
+}
+
+.register-card .card-body {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.register-card .auth-header {
+  margin-bottom: 1.75rem;
+}
+
+.register-card .auth-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.register-card .auth-header p:last-child {
+  color: var(--color-muted);
+  margin-bottom: 0;
 }

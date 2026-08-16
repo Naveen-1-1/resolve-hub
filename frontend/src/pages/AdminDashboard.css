@@ -1,19 +1,46 @@
 .admin-dashboard {
   background: var(--color-bg);
-  min-height: calc(100vh - 64px);
-  padding: 2rem 0 4rem;
+  min-height: calc(100vh - 4.25rem);
+  padding: clamp(2rem, 4vw, 3.5rem) 0 5rem;
 }
 
 .metric-card {
   border-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .metric-card .card-title {
   color: var(--color-accent);
-  font-size: 2rem;
+  font-family: var(--font-mono);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.25rem;
 }
 
 .admin-master-card {
   border-color: var(--color-border);
+  box-shadow: var(--shadow-md);
   min-width: 0;
+}
+
+.admin-master-card .tab-content {
+  background: var(--color-surface);
+}
+
+.admin-master-card .tab-pane > div {
+  padding: clamp(1.25rem, 3vw, 2rem) !important;
+}
+
+.admin-master-card .nav-tabs {
+  border-bottom-color: var(--color-border);
+}
+
+.admin-master-card .nav-link {
+  color: var(--color-muted);
+  font-weight: 700;
+  padding: 1rem;
+}
+
+.admin-master-card .nav-link.active {
+  color: var(--color-accent);
 }

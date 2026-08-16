@@ -25,48 +25,53 @@ function LoginPage() {
   };
 
   return (
-    <Container className="auth-page">
-      <Card className="auth-card">
-        <Card.Body>
-          <h1>Log in</h1>
-          <p>Use your account to continue to your role dashboard.</p>
-          <p className="mb-3">
-            Existing user? Log in below. New customer?{" "}
-            <Link to="/register">Create an account</Link>.
-          </p>
-          <ActionFeedback message={error} variant="danger" />
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="login-email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                value={email}
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                  setError("");
-                }}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="login-password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                  setError("");
-                }}
-                required
-              />
-            </Form.Group>
-            <Button type="submit" className="w-100">
-              Log in
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-    </Container>
+    <main>
+      <Container className="auth-page">
+        <Card className="auth-card">
+          <Card.Body>
+            <header className="auth-header">
+              <p className="eyebrow">Welcome back</p>
+              <h1>Log in</h1>
+              <p>Use your account to continue to your role dashboard.</p>
+            </header>
+            <p className="mb-3">
+              Existing user? Log in below. New customer?{" "}
+              <Link to="/register">Create an account</Link>.
+            </p>
+            <ActionFeedback message={error} variant="danger" />
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="login-email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                    setError("");
+                  }}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="login-password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                    setError("");
+                  }}
+                  required
+                />
+              </Form.Group>
+              <Button type="submit" className="w-100">
+                Log in
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Container>
+    </main>
   );
 }
 

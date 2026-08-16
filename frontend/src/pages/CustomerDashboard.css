@@ -1,17 +1,43 @@
 .dashboard-page {
   background: var(--color-bg);
-  min-height: calc(100vh - 64px);
-  padding: 2rem 0 4rem;
+  min-height: calc(100vh - 4.25rem);
+  padding: clamp(2rem, 4vw, 3.5rem) 0 5rem;
 }
 
 .customer-grid {
   display: grid;
-  gap: 1.25rem;
-  grid-template-columns: minmax(280px, 0.8fr) minmax(420px, 1.5fr);
+  align-items: start;
+  gap: 1.5rem;
+  grid-template-areas:
+    "session notifications"
+    "faq faq"
+    "tickets tickets";
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+}
+
+.customer-grid .session-panel {
+  grid-area: session;
+}
+
+.customer-grid .notification-list {
+  grid-area: notifications;
+}
+
+.customer-grid .faq-browser {
+  grid-area: faq;
+}
+
+.customer-grid .ticket-list {
+  grid-area: tickets;
 }
 
 @media (max-width: 900px) {
   .customer-grid {
+    grid-template-areas:
+      "session"
+      "notifications"
+      "faq"
+      "tickets";
     grid-template-columns: 1fr;
   }
 }

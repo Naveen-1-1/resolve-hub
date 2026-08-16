@@ -94,7 +94,9 @@ function SessionPanel({ sessions, onChanged }) {
         <Card className="mb-4">
           <Card.Body>
             <Badge bg="success">Active</Badge>
-            <Card.Title className="mt-2">{activeSession.topic}</Card.Title>
+            <Card.Title as="h3" className="mt-2">
+              {activeSession.topic}
+            </Card.Title>
             <Card.Text>
               {activeSession.viewedFaqIds.length} FAQ article(s) viewed
             </Card.Text>
@@ -168,7 +170,7 @@ function SessionPanel({ sessions, onChanged }) {
         <Accordion>
           {sessions.map((session, index) => (
             <Accordion.Item eventKey={String(index)} key={session._id}>
-              <Accordion.Header>
+              <Accordion.Header as="h4">
                 <span>
                   {session.topic} — {session.status} ·{" "}
                   {formatDate(session.startedAt)}

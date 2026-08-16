@@ -1,28 +1,76 @@
 .hero {
-  background: linear-gradient(135deg, #e7f4ff, #f5f9fc);
-  padding: 5rem 0;
+  background:
+    radial-gradient(circle at 85% 20%, rgb(158 216 255 / 28%), transparent 32%),
+    linear-gradient(135deg, var(--color-accent-soft), var(--color-bg));
+  border-bottom: 1px solid var(--color-border);
+  padding: clamp(4rem, 9vw, 7rem) 0;
 }
 
 .hero h1 {
   color: var(--color-navy);
-  font-size: clamp(2.2rem, 5vw, 4rem);
-  max-width: 850px;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  margin: 0 0 1.25rem;
+  max-width: 820px;
 }
 
 .hero-copy {
+  color: var(--color-muted);
   font-size: 1.15rem;
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
   max-width: 700px;
 }
 
-.eyebrow {
-  color: var(--color-accent);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.home-guide {
+  padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+}
+
+.home-guide .section-heading {
+  margin-bottom: 2rem;
+  max-width: 40rem;
+}
+
+.home-guide .section-heading h2 {
+  margin-bottom: 0.6rem;
+}
+
+.home-guide .section-heading p:last-child {
+  color: var(--color-muted);
+  margin-bottom: 0;
+}
+
+.role-card {
+  overflow: hidden;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.role-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-0.2rem);
+}
+
+.role-card .card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.role-card .card-title {
+  margin: 0.7rem 0;
+}
+
+.role-card .card-text {
+  color: var(--color-muted);
+  flex: 1;
+  margin-bottom: 1.5rem;
 }
 
 .step-number {
   color: var(--color-accent);
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
 }

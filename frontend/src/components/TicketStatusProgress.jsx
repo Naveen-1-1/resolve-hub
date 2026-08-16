@@ -14,6 +14,7 @@ function TicketStatusProgress({ status }) {
   return (
     <div
       className="ticket-status-progress"
+      role="group"
       aria-label={`Ticket status: ${statuses[activeIndex].label}`}
     >
       {statuses.map((item, index) => (

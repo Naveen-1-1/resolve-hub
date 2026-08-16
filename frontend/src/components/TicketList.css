@@ -1,6 +1,19 @@
 .ticket-list {
-  background: #ffffff;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.ticket-list h2 {
+  margin-bottom: 1.25rem;
+}
+
+.ticket-list .table td {
+  vertical-align: top;
+}
+
+.ticket-list .ticket-status-progress {
+  margin-bottom: 0;
 }

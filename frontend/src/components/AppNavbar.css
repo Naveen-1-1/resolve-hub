@@ -1,5 +1,15 @@
 .app-navbar {
   background: var(--color-navy);
+  box-shadow: 0 0.15rem 0.8rem rgb(23 50 77 / 14%);
+  min-height: 4.25rem;
+  padding: 0.65rem 0;
+}
+
+.app-navbar .navbar-brand {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .app-navbar .navbar-brand,
@@ -8,7 +18,29 @@
   color: #f8fafc;
 }
 
+.app-navbar .navbar-text {
+  color: #d7e6f2;
+  font-size: 0.9rem;
+}
+
+.app-navbar .nav-link {
+  font-weight: 600;
+}
+
 .app-navbar .nav-link:hover,
 .app-navbar .nav-link:focus {
   color: #9ed8ff;
+}
+
+.app-navbar .btn {
+  padding: 0.4rem 0.8rem;
+}
+
+.app-navbar .navbar-toggler {
+  border-color: rgb(255 255 255 / 45%);
+}
+
+.app-navbar button:focus-visible,
+.app-navbar a:focus-visible {
+  outline-color: #9ed8ff;
 }

@@ -28,8 +28,8 @@ function HomePage() {
   const { user } = useAuth();
 
   return (
-    <main>
-      <section className="hero">
+    <main className="home-page">
+      <header className="hero">
         <Container>
           <p className="eyebrow">Customer support, organized</p>
           <h1>Find answers and resolve support requests in one place.</h1>
@@ -41,34 +41,46 @@ function HomePage() {
             {user ? "Open dashboard" : "Get started"}
           </Button>
         </Container>
+      </header>
+      <section className="home-guide" aria-labelledby="how-to-use-heading">
+        <Container>
+          <header className="section-heading">
+            <p className="eyebrow">One connected workflow</p>
+            <h2 id="how-to-use-heading">How to use ResolveHub</h2>
+            <p>
+              Choose the path that matches your role and keep every support
+              action in one place.
+            </p>
+          </header>
+          <Row className="g-4">
+            {roleSteps.map((step, index) => (
+              <Col md={4} key={step.title}>
+                <Card as="article" className="role-card h-100">
+                  <Card.Body>
+                    <span className="step-number" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <Card.Title as="h3">{step.title}</Card.Title>
+                    <Card.Text>{step.text}</Card.Text>
+                    <Link
+                      className="btn btn-outline-primary"
+                      to={
+                        user
+                          ? `/${user.role}`
+                          : step.role === "customer"
+                            ? "/register"
+                            : "/login"
+                      }
+                    >
+                      {step.action}
+                    </Link>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
       </section>
-      <Container className="py-5">
-        <h2>How to use ResolveHub</h2>
-        <Row className="g-3 mt-1">
-          {roleSteps.map((step, index) => (
-            <Col md={4} key={step.title}>
-              <Card
-                as={Link}
-                className="h-100 text-decoration-none"
-                to={
-                  user
-                    ? `/${user.role}`
-                    : step.role === "customer"
-                      ? "/register"
-                      : "/login"
-                }
-              >
-                <Card.Body>
-                  <span className="step-number">{index + 1}</span>
-                  <Card.Title>{step.title}</Card.Title>
-                  <Card.Text>{step.text}</Card.Text>
-                  <span className="btn btn-outline-primary">{step.action}</span>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </Container>
     </main>
   );
 }

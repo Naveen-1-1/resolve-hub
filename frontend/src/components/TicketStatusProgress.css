@@ -1,13 +1,13 @@
 .ticket-status-progress {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   justify-content: space-between;
   margin: 1rem 0;
 }
 
 .ticket-status-step {
   align-items: center;
-  color: #6c757d;
+  color: var(--color-muted);
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -29,10 +29,11 @@
 
 .ticket-status-stop {
   align-items: center;
-  background: #ffffff;
+  background: var(--color-surface);
   border: 2px solid #c6d0da;
   border-radius: 50%;
   display: flex;
+  font-family: var(--font-mono);
   font-weight: 700;
   height: 1.9rem;
   justify-content: center;
@@ -43,17 +44,17 @@
 
 .ticket-status-step.is-complete,
 .ticket-status-step.is-current {
-  color: var(--color-accent);
+  color: var(--color-success);
   font-weight: 700;
 }
 
 .ticket-status-step.is-complete .ticket-status-stop,
 .ticket-status-step.is-current .ticket-status-stop {
-  border-color: var(--color-accent);
+  border-color: var(--color-success);
 }
 
 .ticket-status-step.is-complete::after {
-  background: var(--color-accent);
+  background: var(--color-success);
 }
 
 @media (max-width: 480px) {

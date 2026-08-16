@@ -193,6 +193,7 @@ function FaqManager() {
           </Button>
           {search && (
             <Button
+              type="button"
               variant="outline-secondary"
               onClick={() => {
                 setSearch("");
@@ -213,9 +214,10 @@ function FaqManager() {
         id="faq-editor"
         onSubmit={saveFaq}
         className="faq-editor"
+        aria-labelledby="faq-editor-heading"
         tabIndex="-1"
       >
-        <h3>{editingId ? "Edit FAQ" : "Create FAQ"}</h3>
+        <h3 id="faq-editor-heading">{editingId ? "Edit FAQ" : "Create FAQ"}</h3>
         <p className="text-muted">
           {editingId
             ? "Update the selected FAQ, then save your changes."
@@ -229,8 +231,11 @@ function FaqManager() {
             onChange={updateField}
             required
             maxLength={120}
+            aria-describedby="faq-title-help"
           />
-          <Form.Text>{form.title.length}/120 characters</Form.Text>
+          <Form.Text id="faq-title-help">
+            {form.title.length}/120 characters
+          </Form.Text>
         </Form.Group>
         <Form.Group className="mb-2" controlId="faq-question">
           <Form.Label>Question</Form.Label>
@@ -288,7 +293,8 @@ function FaqManager() {
           </Button>
           {editingId && (
             <Button
-              variant="outline-secondary"
+              type="button"
+              variant="outline-danger"
               onClick={() => {
                 setEditingId(null);
                 setForm(emptyForm);
@@ -303,9 +309,9 @@ function FaqManager() {
       <Table id="faq-list" responsive hover className="mt-4" tabIndex="-1">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Actions</th>
+            <th scope="col">Title</th>
+            <th scope="col">Category</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -315,6 +321,7 @@ function FaqManager() {
               <td>{faq.category}</td>
               <td className="d-flex gap-2">
                 <Button
+                  aria-label={`Edit FAQ: ${faq.title}`}
                   size="sm"
                   variant="outline-primary"
                   onClick={() => editFaq(faq)}
@@ -322,6 +329,7 @@ function FaqManager() {
                   Edit
                 </Button>
                 <Button
+                  aria-label={`Delete FAQ: ${faq.title}`}
                   size="sm"
                   variant="outline-danger"
                   onClick={() => deleteFaq(faq)}
@@ -349,7 +357,7 @@ function FaqManager() {
               disabled={page === 1}
               onClick={() => changePage(page - 1)}
             />
-            <Pagination.Item active>
+            <Pagination.Item active aria-current="page">
               {page} / {pages}
             </Pagination.Item>
             <Pagination.Next
@@ -365,14 +373,14 @@ function FaqManager() {
         show={Boolean(deleteTarget)}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Delete FAQ?</Modal.Title>
+          <Modal.Title as="h2">Delete FAQ?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           This will permanently remove <strong>{deleteTarget?.title}</strong>.
         </Modal.Body>
         <Modal.Footer>
           <Button
-            variant="outline-secondary"
+            variant="outline-danger"
             onClick={() => setDeleteTarget(null)}
           >
             Cancel

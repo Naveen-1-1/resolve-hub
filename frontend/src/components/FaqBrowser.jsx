@@ -131,6 +131,7 @@ function FaqBrowser({ activeSessionId, viewedFaqIds, onSessionChanged }) {
               setCategory(event.target.value);
               setPage(1);
             }}
+            aria-describedby="faq-category-help"
           >
             {categories.map((item) => (
               <option key={item || "all"} value={item}>
@@ -138,7 +139,9 @@ function FaqBrowser({ activeSessionId, viewedFaqIds, onSessionChanged }) {
               </option>
             ))}
           </Form.Select>
-          <Form.Text>Groups FAQs by their main support topic.</Form.Text>
+          <Form.Text id="faq-category-help">
+            Groups FAQs by their main support topic.
+          </Form.Text>
         </Col>
         <Col md={3}>
           <Form.Label htmlFor="faq-tag">Tag</Form.Label>
@@ -149,6 +152,7 @@ function FaqBrowser({ activeSessionId, viewedFaqIds, onSessionChanged }) {
               setTag(event.target.value);
               setPage(1);
             }}
+            aria-describedby="faq-tag-help"
           >
             {tags.map((item) => (
               <option key={item || "all"} value={item}>
@@ -156,7 +160,9 @@ function FaqBrowser({ activeSessionId, viewedFaqIds, onSessionChanged }) {
               </option>
             ))}
           </Form.Select>
-          <Form.Text>Describes keywords associated with an FAQ.</Form.Text>
+          <Form.Text id="faq-tag-help">
+            Describes keywords associated with an FAQ.
+          </Form.Text>
         </Col>
       </Row>
       <ActionFeedback message={message} onClose={() => setMessage("")} />
@@ -169,13 +175,19 @@ function FaqBrowser({ activeSessionId, viewedFaqIds, onSessionChanged }) {
           dismissible
           onClose={() => setSelected(null)}
         >
-          <Alert.Heading>{selected.question}</Alert.Heading>
+          <h3 className="alert-heading">{selected.question}</h3>
           <p className="mb-0 faq-answer">{selected.answer}</p>
         </Alert>
       )}
-      <div className="faq-grid" id="faq-results" tabIndex="-1">
+      <div
+        className="faq-grid"
+        id="faq-results"
+        role="region"
+        aria-labelledby="faq-heading"
+        tabIndex="-1"
+      >
         {faqs.map((faq) => (
-          <Card key={faq._id}>
+          <Card as="article" key={faq._id}>
             <Card.Body>
               <div className="d-flex flex-wrap gap-2 mb-2">
                 <Badge bg="light" text="dark">
@@ -185,9 +197,13 @@ function FaqBrowser({ activeSessionId, viewedFaqIds, onSessionChanged }) {
                   <Badge bg="success">Viewed in this session</Badge>
                 )}
               </div>
-              <Card.Title>{faq.title}</Card.Title>
+              <Card.Title as="h3">{faq.title}</Card.Title>
               <Card.Text>{faq.question}</Card.Text>
-              <Button size="sm" onClick={() => viewFaq(faq)}>
+              <Button
+                aria-label={`View answer for ${faq.title}`}
+                size="sm"
+                onClick={() => viewFaq(faq)}
+              >
                 View answer
               </Button>
             </Card.Body>
@@ -201,7 +217,7 @@ function FaqBrowser({ activeSessionId, viewedFaqIds, onSessionChanged }) {
             disabled={page === 1}
             onClick={() => changePage(page - 1)}
           />
-          <Pagination.Item active>
+          <Pagination.Item active aria-current="page">
             {page} / {pages}
           </Pagination.Item>
           <Pagination.Next
