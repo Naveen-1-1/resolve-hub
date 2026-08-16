@@ -5,7 +5,7 @@
 }
 
 .auth-card {
-  border-color: #dce4ec;
+  border-color: var(--color-border);
   max-width: 460px;
   width: 100%;
 }

@@ -1,5 +1,5 @@
 .app-navbar {
-  background: #17324d;
+  background: var(--color-navy);
 }
 
 .app-navbar .navbar-brand,

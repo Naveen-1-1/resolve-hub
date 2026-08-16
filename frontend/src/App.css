@@ -1,5 +1,11 @@
 :root {
-  color: #25384a;
+  --color-navy: #17324d;
+  --color-text: #25384a;
+  --color-accent: #1769aa;
+  --color-bg: #f4f7fa;
+  --color-border: #dce4ec;
+
+  color: var(--color-text);
   font-family:
     Inter,
     system-ui,
@@ -10,7 +16,7 @@
 }
 
 body {
-  background: #f4f7fa;
+  background: var(--color-bg);
   margin: 0;
 }
 
@@ -18,7 +24,7 @@ h1,
 h2,
 h3,
 h4 {
-  color: #17324d;
+  color: var(--color-navy);
 }
 
 button,

@@ -4,7 +4,7 @@
 }
 
 .hero h1 {
-  color: #17324d;
+  color: var(--color-navy);
   font-size: clamp(2.2rem, 5vw, 4rem);
   max-width: 850px;
 }
@@ -15,14 +15,14 @@
 }
 
 .eyebrow {
-  color: #1769aa;
+  color: var(--color-accent);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .step-number {
-  color: #1769aa;
+  color: var(--color-accent);
   font-size: 1.5rem;
   font-weight: 700;
 }

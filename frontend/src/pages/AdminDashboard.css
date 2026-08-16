@@ -1,19 +1,19 @@
 .admin-dashboard {
-  background: #f4f7fa;
+  background: var(--color-bg);
   min-height: calc(100vh - 64px);
   padding: 2rem 0 4rem;
 }
 
 .metric-card {
-  border-color: #dce4ec;
+  border-color: var(--color-border);
 }
 
 .metric-card .card-title {
-  color: #1769aa;
+  color: var(--color-accent);
   font-size: 2rem;
 }
 
 .admin-master-card {
-  border-color: #dce4ec;
+  border-color: var(--color-border);
   min-width: 0;
 }

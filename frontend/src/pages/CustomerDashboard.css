@@ -1,5 +1,5 @@
 .dashboard-page {
-  background: #f4f7fa;
+  background: var(--color-bg);
   min-height: calc(100vh - 64px);
   padding: 2rem 0 4rem;
 }
