@@ -112,7 +112,7 @@ Public narrated demo video: [https://youtu.be/3M0BZtVOVzQ](https://youtu.be/3M0B
 
 ## Presentation Slides
 
-Google Slides presentation: [https://docs.google.com/presentation/d/1GilCHPLkzQ9E1Oke1zN6DX1FcGRGEBp33SstoaL4Sjs/edit?usp=sharing](https://docs.google.com/presentation/d/1GilCHPLkzQ9E1Oke1zN6DX1FcGRGEBp33SstoaL4Sjs/edit?usp=sharing)
+Google Slides presentation: [https://docs.google.com/presentation/d/1T8el_3uHo8UASS6wn7Memu8kX7NgCkmHO7dZ_dSu3BY/edit?usp=sharing](https://docs.google.com/presentation/d/1T8el_3uHo8UASS6wn7Memu8kX7NgCkmHO7dZ_dSu3BY/edit?usp=sharing)
 
 ## GenAI Disclosure
 

@@ -12,7 +12,7 @@ ResolveHub is a full-stack customer support platform. Customers can open support
 - **Customer:** A customer or employee who needs help with products, policies, or procedures. Customers can start support sessions, browse FAQs, view session history, and escalate unresolved issues into tickets.
 - **Support agent:** A frontline agent who handles escalated queries. Support agents can view and filter the ticket queue, assign tickets, update ticket status, review linked session context, and view notifications.
 - **Knowledge administrator:** An administrator who manages the FAQ library and platform health. Knowledge administrators can create, update, and delete FAQ articles, organize them by category and tags, and view monitoring metrics.
-**Data description:**\
+  **Data description:**\
   ResolveHub stores and displays user accounts and roles, support-session topics and history, FAQ documents with titles, questions, answers, categories, and tags, support tickets with subjects, descriptions, priorities, statuses, assignments, and linked session context, notifications, and monitoring metrics such as session volume, ticket status, notification totals, and resolution time.
   **Main tasks / use cases:**
 - T1 — Customer: Access an account, start a support session, and understand the customer dashboard.
