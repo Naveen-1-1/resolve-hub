@@ -1,6 +1,5 @@
 # Usability Study Report
 
-**Submission note:** Add evidence of the recordings and confirm that the instructor can access the evidence from [john.guerra@gmail.com](mailto:john.guerra@gmail.com).
 Author: Naveen Shankar
 
 # Application scope
@@ -48,13 +47,12 @@ ResolveHub is a full-stack customer support platform. Customers can open support
 
 ### Recording setup
 
-Prepare audio, video, and screen recording. Add the recording evidence and access information here:
+Prepare audio, video, and screen recording. Add the recording evidence here:
 
 - Recording evidence:
   - Sai — Admin: [ResolveHub — Customer support, organized](https://youtu.be/NX-UVRV2DIo)
   - Mayur — Agent: [ResolveHub — Customer support, organized](https://youtu.be/S63aOfxIUQ_)
   - Prashanth — Customer: [ResolveHub — Customer support, organized](https://youtu.be/QBYozLgLcnY)
-- Recording access for: [john.guerra@gmail.com](mailto:john.guerra@gmail.com)
 
 ### Script of the tasks to be read to participants
 
