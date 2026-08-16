@@ -7,14 +7,20 @@ const roleSteps = [
   {
     title: "Customers",
     text: "Start a support session, browse FAQs, and escalate unresolved questions.",
+    role: "customer",
+    action: "Create a customer account",
   },
   {
     title: "Support agents",
     text: "Review the ticket queue, accept tickets, and update their status.",
+    role: "agent",
+    action: "Log in to the agent dashboard",
   },
   {
     title: "Knowledge admins",
     text: "Maintain the FAQ library and review simple support metrics.",
+    role: "admin",
+    action: "Log in to the admin dashboard",
   },
 ];
 
@@ -41,11 +47,22 @@ function HomePage() {
         <Row className="g-3 mt-1">
           {roleSteps.map((step, index) => (
             <Col md={4} key={step.title}>
-              <Card className="h-100">
+              <Card
+                as={Link}
+                className="h-100 text-decoration-none"
+                to={
+                  user
+                    ? `/${user.role}`
+                    : step.role === "customer"
+                      ? "/register"
+                      : "/login"
+                }
+              >
                 <Card.Body>
                   <span className="step-number">{index + 1}</span>
                   <Card.Title>{step.title}</Card.Title>
                   <Card.Text>{step.text}</Card.Text>
+                  <span className="btn btn-outline-primary">{step.action}</span>
                 </Card.Body>
               </Card>
             </Col>

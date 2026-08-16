@@ -2,6 +2,8 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { Accordion, Alert, Badge, Button, Card, Form } from "react-bootstrap";
 import { apiFetch } from "../api.js";
+import ActionFeedback from "./ActionFeedback.jsx";
+import { scrollToSection } from "../scrollToSection.js";
 import "./SessionPanel.css";
 
 const formatDate = (value) =>
@@ -19,39 +21,58 @@ function SessionPanel({ sessions, onChanged }) {
     priority: "medium",
   });
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
-  const runAction = async (path, options) => {
+  const runAction = async (path, options, successMessage, focusTarget) => {
     try {
-      await apiFetch(path, options);
+      const data = await apiFetch(path, options);
       setError("");
+      if (successMessage) setMessage(successMessage);
       await onChanged();
+      if (focusTarget) scrollToSection(focusTarget);
+      return data;
     } catch (requestError) {
+      setMessage("");
       setError(requestError.message);
+      return null;
     }
   };
 
   const startSession = async (event) => {
     event.preventDefault();
-    await runAction("/sessions", {
-      method: "POST",
-      body: JSON.stringify({ topic }),
-    });
-    setTopic("");
+    const result = await runAction(
+      "/sessions",
+      {
+        method: "POST",
+        body: JSON.stringify({ topic }),
+      },
+      "Support session started.",
+      "session-heading"
+    );
+    if (result) setTopic("");
   };
 
   const escalate = async (event) => {
     event.preventDefault();
-    await runAction(`/sessions/${activeSession._id}/escalate`, {
-      method: "POST",
-      body: JSON.stringify(ticket),
-    });
-    setTicket({ subject: "", description: "", priority: "medium" });
+    const result = await runAction(
+      `/sessions/${activeSession._id}/escalate`,
+      {
+        method: "POST",
+        body: JSON.stringify(ticket),
+      },
+      "Ticket created successfully. An agent can now review your request.",
+      "customer-tickets"
+    );
+    if (result) setTicket({ subject: "", description: "", priority: "medium" });
   };
 
   return (
     <section className="session-panel" aria-labelledby="session-heading">
-      <h2 id="session-heading">Support session</h2>
+      <h2 id="session-heading" tabIndex="-1">
+        Support session
+      </h2>
       <p>Start a session before reading FAQs so your activity is recorded.</p>
+      <ActionFeedback message={message} onClose={() => setMessage("")} />
       {error && <Alert variant="danger">{error}</Alert>}
       {!activeSession ? (
         <Form onSubmit={startSession} className="mb-4">
@@ -80,9 +101,14 @@ function SessionPanel({ sessions, onChanged }) {
             <Button
               variant="outline-success"
               onClick={() =>
-                runAction(`/sessions/${activeSession._id}/resolve`, {
-                  method: "PATCH",
-                })
+                runAction(
+                  `/sessions/${activeSession._id}/resolve`,
+                  {
+                    method: "PATCH",
+                  },
+                  "Support session marked as resolved.",
+                  "session-heading"
+                )
               }
             >
               Mark resolved

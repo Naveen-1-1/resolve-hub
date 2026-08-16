@@ -9,20 +9,28 @@ function RegisterPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  if (user) return <Navigate to={`/${user.role}`} replace />;
+  if (user && !isSubmitting) return <Navigate to={`/${user.role}`} replace />;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     try {
       const registeredUser = await register(
         form.name,
         form.email,
         form.password
       );
-      navigate(`/${registeredUser.role}`);
+      navigate(`/${registeredUser.role}`, {
+        state: {
+          notice:
+            "Customer account created successfully. Your customer dashboard is ready.",
+        },
+      });
     } catch (requestError) {
       setError(requestError.message);
+      setIsSubmitting(false);
     }
   };
 

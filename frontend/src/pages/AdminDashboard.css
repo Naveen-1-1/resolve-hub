@@ -12,3 +12,8 @@
   color: #1769aa;
   font-size: 2rem;
 }
+
+.admin-master-card {
+  border-color: #dce4ec;
+  min-width: 0;
+}

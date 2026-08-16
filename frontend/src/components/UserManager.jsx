@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Alert, Button, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { apiFetch } from "../api.js";
+import ActionFeedback from "./ActionFeedback.jsx";
 import "./UserManager.css";
 
 const emptyUser = {
@@ -36,7 +37,13 @@ function UserManager() {
     <section className="user-manager" aria-labelledby="user-manager-heading">
       <h2 id="user-manager-heading">Register a user</h2>
       <p>Create customer, support-agent, or admin accounts.</p>
-      {message && <Alert variant={message.type}>{message.text}</Alert>}
+      {message && (
+        <ActionFeedback
+          message={message.text}
+          onClose={() => setMessage(null)}
+          variant={message.type}
+        />
+      )}
       <Form onSubmit={createUser} className="user-manager-form">
         <Form.Group controlId="new-user-name">
           <Form.Label>Name</Form.Label>

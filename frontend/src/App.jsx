@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { Container } from "react-bootstrap";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import AppNavbar from "./components/AppNavbar.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
@@ -10,10 +11,21 @@ import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import "./App.css";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <>
       <AppNavbar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

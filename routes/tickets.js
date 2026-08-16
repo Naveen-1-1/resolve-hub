@@ -13,6 +13,38 @@ const transitions = {
 const toObjectId = (value) =>
   ObjectId.isValid(value) ? new ObjectId(value) : null;
 
+const enrichTickets = async (db, tickets) => {
+  const agentIds = [
+    ...new Map(
+      tickets
+        .filter((ticket) => ticket.assignedAgentId)
+        .map((ticket) => [
+          ticket.assignedAgentId.toString(),
+          ticket.assignedAgentId,
+        ])
+    ).values(),
+  ];
+  const agents = agentIds.length
+    ? await db
+        .collection("users")
+        .find(
+          { _id: { $in: agentIds } },
+          { projection: { name: 1, email: 1, role: 1 } }
+        )
+        .toArray()
+    : [];
+  const agentsById = new Map(
+    agents.map((agent) => [agent._id.toString(), agent])
+  );
+
+  return tickets.map((ticket) => ({
+    ...ticket,
+    assignedAgent: ticket.assignedAgentId
+      ? agentsById.get(ticket.assignedAgentId.toString()) || null
+      : null,
+  }));
+};
+
 const canViewTicket = (user, ticket) =>
   user.role !== "customer" ||
   ticket.customerId.toString() === user._id.toString();
@@ -46,7 +78,7 @@ router.get("/", async (req, res) => {
       .sort({ updatedAt: -1 })
       .limit(100)
       .toArray();
-    res.json({ tickets });
+    res.json({ tickets: await enrichTickets(db, tickets) });
   } catch (error) {
     console.error("Failed to list tickets:", error);
     res.status(500).json({ message: "Unable to load tickets" });
@@ -66,7 +98,8 @@ router.get("/:id", async (req, res) => {
     const session = await db
       .collection("supportSessions")
       .findOne({ _id: ticket.sessionId });
-    return res.json({ ticket, session });
+    const [enrichedTicket] = await enrichTickets(db, [ticket]);
+    return res.json({ ticket: enrichedTicket, session });
   } catch (error) {
     console.error("Failed to load ticket:", error);
     return res.status(500).json({ message: "Unable to load ticket" });
@@ -96,7 +129,8 @@ router.patch("/:id/assign", requireRole("agent"), async (req, res) => {
         { returnDocument: "after" }
       );
     await notifyCustomer(db, updated, "A support agent accepted your ticket.");
-    return res.json({ ticket: updated });
+    const [enrichedTicket] = await enrichTickets(db, [updated]);
+    return res.json({ ticket: enrichedTicket });
   } catch (error) {
     console.error("Failed to assign ticket:", error);
     return res.status(500).json({ message: "Unable to assign ticket" });
@@ -147,7 +181,8 @@ router.patch("/:id/status", requireRole("agent"), async (req, res) => {
       isRead: false,
       createdAt: new Date(),
     });
-    return res.json({ ticket: updated });
+    const [enrichedTicket] = await enrichTickets(db, [updated]);
+    return res.json({ ticket: enrichedTicket });
   } catch (error) {
     console.error("Failed to update ticket status:", error);
     return res.status(500).json({ message: "Unable to update ticket" });

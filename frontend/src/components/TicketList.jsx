@@ -1,10 +1,16 @@
 import PropTypes from "prop-types";
 import { Badge, Table } from "react-bootstrap";
+import TicketStatusProgress from "./TicketStatusProgress.jsx";
 import "./TicketList.css";
 
 function TicketList({ tickets }) {
   return (
-    <section className="ticket-list" aria-labelledby="tickets-heading">
+    <section
+      className="ticket-list"
+      id="customer-tickets"
+      aria-labelledby="tickets-heading"
+      tabIndex="-1"
+    >
       <h2 id="tickets-heading">My tickets</h2>
       {tickets.length ? (
         <Table responsive hover>
@@ -17,7 +23,7 @@ function TicketList({ tickets }) {
           </thead>
           <tbody>
             {tickets.map((ticket) => (
-              <tr key={ticket._id}>
+              <tr id={`ticket-${ticket._id}`} key={ticket._id} tabIndex="-1">
                 <td>{ticket.subject}</td>
                 <td>{ticket.priority}</td>
                 <td>
@@ -26,6 +32,7 @@ function TicketList({ tickets }) {
                   >
                     {ticket.status.replace("_", " ")}
                   </Badge>
+                  <TicketStatusProgress status={ticket.status} />
                 </td>
               </tr>
             ))}

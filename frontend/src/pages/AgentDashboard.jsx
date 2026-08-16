@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Badge,
@@ -11,8 +11,11 @@ import {
   Table,
 } from "react-bootstrap";
 import { apiFetch } from "../api.js";
+import ActionFeedback from "../components/ActionFeedback.jsx";
 import NotificationList from "../components/NotificationList.jsx";
+import TicketStatusProgress from "../components/TicketStatusProgress.jsx";
 import { useAuth } from "../context/useAuth.js";
+import { scrollToSection } from "../scrollToSection.js";
 import "./AgentDashboard.css";
 
 function AgentDashboard() {
@@ -22,7 +25,23 @@ function AgentDashboard() {
   const [selected, setSelected] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [sortBy, setSortBy] = useState("updated");
   const assignedToCurrentAgent = selected?.ticket.assignedAgentId === user._id;
+  const sortedTickets = useMemo(() => {
+    const statusOrder = { open: 0, in_progress: 1, resolved: 2 };
+    const priorityOrder = { high: 0, medium: 1, low: 2 };
+
+    return [...tickets].sort((first, second) => {
+      if (sortBy === "status") {
+        return statusOrder[first.status] - statusOrder[second.status];
+      }
+      if (sortBy === "priority") {
+        return priorityOrder[first.priority] - priorityOrder[second.priority];
+      }
+      return new Date(second.updatedAt) - new Date(first.updatedAt);
+    });
+  }, [sortBy, tickets]);
 
   const fetchTickets = useCallback(async () => {
     const params = new URLSearchParams();
@@ -85,6 +104,23 @@ function AgentDashboard() {
     };
   }, [fetchNotifications]);
 
+  useEffect(() => {
+    if (selected) scrollToSection("ticket-detail-heading");
+  }, [selected]);
+
+  const updateFilter = (name, value) => {
+    setFilters((currentFilters) => ({
+      ...currentFilters,
+      [name]: value,
+    }));
+    scrollToSection("queue-heading");
+  };
+
+  const updateSort = (value) => {
+    setSortBy(value);
+    scrollToSection("queue-heading");
+  };
+
   const selectTicket = async (id) => {
     try {
       setSelected(await apiFetch(`/tickets/${id}`));
@@ -93,12 +129,14 @@ function AgentDashboard() {
     }
   };
 
-  const updateTicket = async (path, body) => {
+  const updateTicket = async (path, body, successMessage) => {
     try {
       const data = await apiFetch(path, {
         method: "PATCH",
         body: body ? JSON.stringify(body) : undefined,
       });
+      setMessage(successMessage);
+      setError("");
       await Promise.all([loadTickets(), loadNotifications()]);
       await selectTicket(data.ticket._id);
     } catch (requestError) {
@@ -114,16 +152,22 @@ function AgentDashboard() {
           Filter requests, assign a ticket to yourself, and move it through the
           support steps.
         </p>
+        <ActionFeedback message={message} onClose={() => setMessage("")} />
         {error && <Alert variant="danger">{error}</Alert>}
+        <div className="mb-4">
+          <NotificationList
+            notifications={notifications}
+            onChanged={loadNotifications}
+            onTicketFocus={selectTicket}
+          />
+        </div>
         <Row className="g-2 mb-3">
           <Col sm={6}>
             <Form.Label htmlFor="ticket-status-filter">Status</Form.Label>
             <Form.Select
               id="ticket-status-filter"
               value={filters.status}
-              onChange={(event) =>
-                setFilters({ ...filters, status: event.target.value })
-              }
+              onChange={(event) => updateFilter("status", event.target.value)}
             >
               <option value="">All statuses</option>
               <option value="open">Open</option>
@@ -136,56 +180,81 @@ function AgentDashboard() {
             <Form.Select
               id="ticket-priority-filter"
               value={filters.priority}
-              onChange={(event) =>
-                setFilters({ ...filters, priority: event.target.value })
-              }
+              onChange={(event) => updateFilter("priority", event.target.value)}
             >
               <option value="">All priorities</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
               <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </Form.Select>
+          </Col>
+          <Col sm={6} md={4}>
+            <Form.Label htmlFor="ticket-sort">Sort queue by</Form.Label>
+            <Form.Select
+              id="ticket-sort"
+              value={sortBy}
+              onChange={(event) => updateSort(event.target.value)}
+            >
+              <option value="updated">Recently updated</option>
+              <option value="status">Status</option>
+              <option value="priority">Priority</option>
             </Form.Select>
           </Col>
         </Row>
 
         <div className="agent-grid">
           <section className="ticket-table" aria-labelledby="queue-heading">
-            <h2 id="queue-heading">Tickets</h2>
+            <h2 id="queue-heading" tabIndex="-1">
+              Tickets
+            </h2>
             <Table responsive hover>
               <thead>
                 <tr>
                   <th>Subject</th>
                   <th>Priority</th>
                   <th>Status</th>
+                  <th>Assigned agent</th>
                   <th />
                 </tr>
               </thead>
               <tbody>
-                {tickets.map((ticket) => (
-                  <tr key={ticket._id}>
+                {sortedTickets.map((ticket) => (
+                  <tr
+                    className={
+                      selected?.ticket._id === ticket._id ? "table-primary" : ""
+                    }
+                    id={`ticket-${ticket._id}`}
+                    key={ticket._id}
+                  >
                     <td>{ticket.subject}</td>
                     <td>{ticket.priority}</td>
                     <td>{ticket.status.replace("_", " ")}</td>
+                    <td>
+                      {ticket.assignedAgent?.name ||
+                        (ticket.assignedAgentId ? "Assigned" : "Unassigned")}
+                    </td>
                     <td>
                       <Button
                         size="sm"
                         variant="outline-primary"
                         onClick={() => selectTicket(ticket._id)}
                       >
-                        Review
+                        Open ticket
                       </Button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-            {!tickets.length && <p>No tickets match these filters.</p>}
+            {!sortedTickets.length && <p>No tickets match these filters.</p>}
           </section>
 
           <section aria-labelledby="ticket-detail-heading">
             <Card>
               <Card.Body>
-                <h2 id="ticket-detail-heading">Ticket detail</h2>
+                <h2 id="ticket-detail-heading" tabIndex="-1">
+                  Ticket detail
+                </h2>
                 {!selected ? (
                   <p>Select a ticket from the queue.</p>
                 ) : (
@@ -193,22 +262,48 @@ function AgentDashboard() {
                     <Badge>{selected.ticket.priority}</Badge>
                     <h3 className="mt-2">{selected.ticket.subject}</h3>
                     <p>{selected.ticket.description}</p>
+                    <p className="mb-2">
+                      <strong>Status:</strong>{" "}
+                      {selected.ticket.status.replace("_", " ")}
+                    </p>
+                    <TicketStatusProgress status={selected.ticket.status} />
+                    <p className="mb-2">
+                      <strong>Assigned agent:</strong>{" "}
+                      {selected.ticket.assignedAgent?.name ||
+                        (selected.ticket.assignedAgentId
+                          ? "Another support agent"
+                          : "Unassigned")}
+                    </p>
                     <hr />
                     <h4>Session context</h4>
                     <p>
-                      {selected.session?.topic || "Session unavailable"} ·{" "}
-                      {selected.session?.viewedFaqIds?.length || 0} FAQ views
+                      <strong>Topic:</strong>{" "}
+                      {selected.session?.topic || "Session unavailable"}
+                      <br />
+                      <strong>FAQ articles viewed:</strong>{" "}
+                      {selected.session?.viewedFaqIds?.length || 0}
+                      {selected.session?.startedAt && (
+                        <>
+                          <br />
+                          <strong>Started:</strong>{" "}
+                          {new Date(
+                            selected.session.startedAt
+                          ).toLocaleString()}
+                        </>
+                      )}
                     </p>
                     <div className="d-flex flex-wrap gap-2">
                       {!selected.ticket.assignedAgentId && (
                         <Button
                           onClick={() =>
                             updateTicket(
-                              `/tickets/${selected.ticket._id}/assign`
+                              `/tickets/${selected.ticket._id}/assign`,
+                              undefined,
+                              "Ticket assigned to you."
                             )
                           }
                         >
-                          Assign to me
+                          Assign ticket to me
                         </Button>
                       )}
                       {assignedToCurrentAgent &&
@@ -218,11 +313,12 @@ function AgentDashboard() {
                             onClick={() =>
                               updateTicket(
                                 `/tickets/${selected.ticket._id}/status`,
-                                { status: "in_progress" }
+                                { status: "in_progress" },
+                                "Ticket marked in progress."
                               )
                             }
                           >
-                            Start progress
+                            Mark in progress
                           </Button>
                         )}
                       {assignedToCurrentAgent &&
@@ -232,11 +328,12 @@ function AgentDashboard() {
                             onClick={() =>
                               updateTicket(
                                 `/tickets/${selected.ticket._id}/status`,
-                                { status: "resolved" }
+                                { status: "resolved" },
+                                "Ticket marked resolved."
                               )
                             }
                           >
-                            Resolve
+                            Mark resolved
                           </Button>
                         )}
                     </div>
@@ -251,12 +348,6 @@ function AgentDashboard() {
               </Card.Body>
             </Card>
           </section>
-        </div>
-        <div className="mt-4">
-          <NotificationList
-            notifications={notifications}
-            onChanged={loadNotifications}
-          />
         </div>
       </Container>
     </main>

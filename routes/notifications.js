@@ -5,6 +5,64 @@ import { isAuthenticated } from "../middleware/auth.js";
 
 const router = express.Router();
 
+const enrichNotifications = async (db, notifications) => {
+  const ticketIds = [
+    ...new Map(
+      notifications
+        .filter((notification) => notification.ticketId)
+        .map((notification) => [
+          notification.ticketId.toString(),
+          notification.ticketId,
+        ])
+    ).values(),
+  ];
+  const tickets = ticketIds.length
+    ? await db
+        .collection("tickets")
+        .find(
+          { _id: { $in: ticketIds } },
+          { projection: { subject: 1, sessionId: 1 } }
+        )
+        .toArray()
+    : [];
+  const sessionIds = [
+    ...new Map(
+      tickets
+        .filter((ticket) => ticket.sessionId)
+        .map((ticket) => [ticket.sessionId.toString(), ticket.sessionId])
+    ).values(),
+  ];
+  const sessions = sessionIds.length
+    ? await db
+        .collection("supportSessions")
+        .find({ _id: { $in: sessionIds } }, { projection: { topic: 1 } })
+        .toArray()
+    : [];
+  const sessionsById = new Map(
+    sessions.map((session) => [session._id.toString(), session])
+  );
+  const ticketsById = new Map(
+    tickets.map((ticket) => [ticket._id.toString(), ticket])
+  );
+
+  return notifications.map((notification) => {
+    const ticket = notification.ticketId
+      ? ticketsById.get(notification.ticketId.toString())
+      : null;
+    return {
+      ...notification,
+      ticket: ticket
+        ? {
+            subject: ticket.subject,
+            sessionTopic: ticket.sessionId
+              ? sessionsById.get(ticket.sessionId.toString())?.topic
+              : null,
+          }
+        : null,
+    };
+  });
+};
+
 router.use(isAuthenticated);
 
 router.get("/", async (req, res) => {
@@ -16,7 +74,7 @@ router.get("/", async (req, res) => {
       .sort({ createdAt: -1 })
       .limit(50)
       .toArray();
-    res.json({ notifications });
+    res.json({ notifications: await enrichNotifications(db, notifications) });
   } catch (error) {
     console.error("Failed to list notifications:", error);
     res.status(500).json({ message: "Unable to load notifications" });

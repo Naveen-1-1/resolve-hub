@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Alert, Button, Card, Container, Form } from "react-bootstrap";
+import { Button, Card, Container, Form } from "react-bootstrap";
 import { Link, Navigate, useNavigate } from "react-router";
+import ActionFeedback from "../components/ActionFeedback.jsx";
 import { useAuth } from "../context/useAuth.js";
 import "./LoginPage.css";
 
@@ -18,8 +19,8 @@ function LoginPage() {
     try {
       const loggedInUser = await login(email, password);
       navigate(`/${loggedInUser.role}`);
-    } catch (requestError) {
-      setError(requestError.message);
+    } catch {
+      setError("We couldn't sign you in. Check your email and password.");
     }
   };
 
@@ -29,14 +30,21 @@ function LoginPage() {
         <Card.Body>
           <h1>Log in</h1>
           <p>Use your account to continue to your role dashboard.</p>
-          {error && <Alert variant="danger">{error}</Alert>}
+          <p className="mb-3">
+            Existing user? Log in below. New customer?{" "}
+            <Link to="/register">Create an account</Link>.
+          </p>
+          <ActionFeedback message={error} variant="danger" />
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="login-email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                  setError("");
+                }}
                 required
               />
             </Form.Group>
@@ -45,7 +53,10 @@ function LoginPage() {
               <Form.Control
                 type="password"
                 value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                  setError("");
+                }}
                 required
               />
             </Form.Group>
@@ -53,9 +64,6 @@ function LoginPage() {
               Log in
             </Button>
           </Form>
-          <p className="mt-3 mb-0">
-            Need a customer account? <Link to="/register">Register</Link>
-          </p>
         </Card.Body>
       </Card>
     </Container>

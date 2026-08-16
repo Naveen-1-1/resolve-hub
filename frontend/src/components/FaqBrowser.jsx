@@ -11,6 +11,8 @@ import {
   Row,
 } from "react-bootstrap";
 import { apiFetch } from "../api.js";
+import ActionFeedback from "./ActionFeedback.jsx";
+import { scrollToSection } from "../scrollToSection.js";
 import "./FaqBrowser.css";
 
 const categories = [
@@ -38,7 +40,7 @@ const tags = [
   "account",
 ];
 
-function FaqBrowser({ activeSessionId, onSessionChanged }) {
+function FaqBrowser({ activeSessionId, viewedFaqIds, onSessionChanged }) {
   const [faqs, setFaqs] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
@@ -47,6 +49,7 @@ function FaqBrowser({ activeSessionId, onSessionChanged }) {
   const [pages, setPages] = useState(1);
   const [selected, setSelected] = useState(null);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams({ page: String(page) });
@@ -69,6 +72,15 @@ function FaqBrowser({ activeSessionId, onSessionChanged }) {
     };
   }, [category, page, search, tag]);
 
+  useEffect(() => {
+    if (selected) scrollToSection("faq-answer");
+  }, [selected]);
+
+  const changePage = (nextPage) => {
+    setPage(nextPage);
+    scrollToSection("faq-results");
+  };
+
   const viewFaq = async (faq) => {
     setSelected(faq);
     if (!activeSessionId) return;
@@ -77,6 +89,7 @@ function FaqBrowser({ activeSessionId, onSessionChanged }) {
         method: "PATCH",
         body: JSON.stringify({ faqId: faq._id }),
       });
+      setMessage("FAQ saved to your active support session.");
       onSessionChanged();
     } catch (requestError) {
       setError(requestError.message);
@@ -87,7 +100,9 @@ function FaqBrowser({ activeSessionId, onSessionChanged }) {
     <section className="faq-browser" aria-labelledby="faq-heading">
       <div className="section-heading">
         <div>
-          <h2 id="faq-heading">FAQ library</h2>
+          <h2 id="faq-heading" tabIndex="-1">
+            FAQ library
+          </h2>
           <p>Search common support questions by title or category.</p>
         </div>
         {!activeSessionId && (
@@ -123,6 +138,7 @@ function FaqBrowser({ activeSessionId, onSessionChanged }) {
               </option>
             ))}
           </Form.Select>
+          <Form.Text>Groups FAQs by their main support topic.</Form.Text>
         </Col>
         <Col md={3}>
           <Form.Label htmlFor="faq-tag">Tag</Form.Label>
@@ -140,22 +156,35 @@ function FaqBrowser({ activeSessionId, onSessionChanged }) {
               </option>
             ))}
           </Form.Select>
+          <Form.Text>Describes keywords associated with an FAQ.</Form.Text>
         </Col>
       </Row>
+      <ActionFeedback message={message} onClose={() => setMessage("")} />
       {error && <Alert variant="danger">{error}</Alert>}
       {selected && (
-        <Alert variant="info" dismissible onClose={() => setSelected(null)}>
+        <Alert
+          id="faq-answer"
+          tabIndex="-1"
+          variant="info"
+          dismissible
+          onClose={() => setSelected(null)}
+        >
           <Alert.Heading>{selected.question}</Alert.Heading>
           <p className="mb-0 faq-answer">{selected.answer}</p>
         </Alert>
       )}
-      <div className="faq-grid">
+      <div className="faq-grid" id="faq-results" tabIndex="-1">
         {faqs.map((faq) => (
           <Card key={faq._id}>
             <Card.Body>
-              <Badge className="mb-2" bg="light" text="dark">
-                {faq.category}
-              </Badge>
+              <div className="d-flex flex-wrap gap-2 mb-2">
+                <Badge bg="light" text="dark">
+                  {faq.category}
+                </Badge>
+                {viewedFaqIds.includes(faq._id) && (
+                  <Badge bg="success">Viewed in this session</Badge>
+                )}
+              </div>
               <Card.Title>{faq.title}</Card.Title>
               <Card.Text>{faq.question}</Card.Text>
               <Button size="sm" onClick={() => viewFaq(faq)}>
@@ -170,14 +199,14 @@ function FaqBrowser({ activeSessionId, onSessionChanged }) {
         <Pagination className="mt-3">
           <Pagination.Prev
             disabled={page === 1}
-            onClick={() => setPage((current) => current - 1)}
+            onClick={() => changePage(page - 1)}
           />
           <Pagination.Item active>
             {page} / {pages}
           </Pagination.Item>
           <Pagination.Next
             disabled={page === pages}
-            onClick={() => setPage((current) => current + 1)}
+            onClick={() => changePage(page + 1)}
           />
         </Pagination>
       )}
@@ -187,11 +216,13 @@ function FaqBrowser({ activeSessionId, onSessionChanged }) {
 
 FaqBrowser.propTypes = {
   activeSessionId: PropTypes.string,
+  viewedFaqIds: PropTypes.arrayOf(PropTypes.string),
   onSessionChanged: PropTypes.func.isRequired,
 };
 
 FaqBrowser.defaultProps = {
   activeSessionId: null,
+  viewedFaqIds: [],
 };
 
 export default FaqBrowser;

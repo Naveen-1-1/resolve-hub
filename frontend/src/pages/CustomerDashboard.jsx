@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { Alert, Container } from "react-bootstrap";
+import { Alert, Button, Container, Modal } from "react-bootstrap";
+import { useLocation } from "react-router";
 import FaqBrowser from "../components/FaqBrowser.jsx";
 import NotificationList from "../components/NotificationList.jsx";
 import SessionPanel from "../components/SessionPanel.jsx";
 import TicketList from "../components/TicketList.jsx";
 import { apiFetch } from "../api.js";
+import { scrollToSection } from "../scrollToSection.js";
 import "./CustomerDashboard.css";
 
 async function fetchDashboard() {
@@ -21,6 +23,10 @@ async function fetchDashboard() {
 }
 
 function CustomerDashboard() {
+  const location = useLocation();
+  const [registrationNotice, setRegistrationNotice] = useState(
+    location.state?.notice || ""
+  );
   const [sessions, setSessions] = useState([]);
   const [tickets, setTickets] = useState([]);
   const [notifications, setNotifications] = useState([]);
@@ -56,6 +62,7 @@ function CustomerDashboard() {
   }, [applyDashboard]);
 
   const activeSession = sessions.find((session) => session.status === "active");
+  const focusTicket = (ticketId) => scrollToSection(`ticket-${ticketId}`);
 
   return (
     <main className="dashboard-page">
@@ -64,17 +71,32 @@ function CustomerDashboard() {
         <p>
           Start a session, review FAQs, then resolve it or request agent help.
         </p>
+        <Modal
+          centered
+          onHide={() => setRegistrationNotice("")}
+          show={Boolean(registrationNotice)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Account created</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{registrationNotice}</Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => setRegistrationNotice("")}>Continue</Button>
+          </Modal.Footer>
+        </Modal>
         {error && <Alert variant="danger">{error}</Alert>}
         <div className="customer-grid">
-          <SessionPanel sessions={sessions} onChanged={loadDashboard} />
-          <FaqBrowser
-            activeSessionId={activeSession?._id}
-            onSessionChanged={loadDashboard}
-          />
-          <TicketList tickets={tickets} />
           <NotificationList
             notifications={notifications}
             onChanged={loadDashboard}
+            onTicketFocus={focusTicket}
+          />
+          <SessionPanel sessions={sessions} onChanged={loadDashboard} />
+          <TicketList tickets={tickets} />
+          <FaqBrowser
+            activeSessionId={activeSession?._id}
+            viewedFaqIds={activeSession?.viewedFaqIds || []}
+            onSessionChanged={loadDashboard}
           />
         </div>
       </Container>
