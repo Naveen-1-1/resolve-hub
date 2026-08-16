@@ -2,8 +2,10 @@
 
 ## Project Description
 
-ResolveHub uses a clean and organized design for finding answers, getting
-support, managing tickets, and maintaining help articles.
+ResolveHub is an enterprise support workspace for organizations that need to
+manage customer questions, shared knowledge, and escalations in one place.
+Customers find answers, support agents resolve tickets, and knowledge admins
+keep support information accurate and useful.
 
 ## Color Palette
 
@@ -18,11 +20,22 @@ Exact colors: navy `#17324d`, text `#25384a`, blue `#1769aa`, background
 Soft colors: white `#ffffff`, success `#eaf7f1`, warning `#fff8e1`, danger
 `#fff1f0`, and information `#e7f4ff`.
 
+The cool navy and blue tones make the support experience feel calm and
+dependable. Clear status colors help users understand results and next steps
+quickly without relying on color alone.
+
 ## Typography
 
-The design uses a clear, modern font for headings, body text, labels, and
-buttons. A fixed-width font is used for numbers, statuses, and other details
-that need to line up neatly.
+The exact font pairing is IBM Plex Sans for headings, body text, labels,
+navigation, and buttons, with IBM Plex Mono for numbers, statuses, and
+operational details. The fonts are loaded in
+[frontend/index.html](./frontend/index.html) and defined in
+[frontend/src/App.css](./frontend/src/App.css).
+
+This pairing keeps longer text comfortable to read while making numbers and
+statuses easy to scan and compare.
+That balance supports an enterprise setting where customers need clear
+guidance and support teams need to review operational details quickly.
 
 ## Layout and Hierarchy
 
