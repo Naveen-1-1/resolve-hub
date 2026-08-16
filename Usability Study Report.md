@@ -51,7 +51,7 @@ Prepare audio, video, and screen recording. Add the recording evidence here:
 
 - Recording evidence:
   - Sai — Admin: [ResolveHub — Customer support, organized](https://youtu.be/NX-UVRV2DIo)
-  - Mayur — Agent: [ResolveHub — Customer support, organized](https://youtu.be/S63aOfxIUQ_)
+  - Mayur — Agent: [ResolveHub — Customer support, organized](https://youtu.be/S63aOfx_IUQ)
   - Prashanth — Customer: [ResolveHub — Customer support, organized](https://youtu.be/QBYozLgLcnY)
 
 ### Script of the tasks to be read to participants
