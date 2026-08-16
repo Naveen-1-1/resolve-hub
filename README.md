@@ -18,7 +18,7 @@ The frontend is built using React with hooks, HTML, and CSS. The backend uses No
 
 ## Screenshot
 
-Homepage screenshot
+![Homepage screenshot](./docs/Application-Screenshot.jpeg)
 
 ## Build And Run Instructions
 
