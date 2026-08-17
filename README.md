@@ -108,7 +108,7 @@ layout. Full-size wireframes are also available in `[docs/wireframes/](./docs/wi
 
 ## Demo Video
 
-Public narrated demo video: [https://youtu.be/3M0BZtVOVzQ](https://youtu.be/3M0BZtVOVzQ)
+Public narrated demo video: [https://youtu.be/AoUZGv9jmDU](https://youtu.be/AoUZGv9jmDU)
 
 ## Presentation Slides
 
