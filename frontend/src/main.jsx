@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router";
 import AuthProvider from "./context/AuthProvider.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+// Logan leaving comment here for code review
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
